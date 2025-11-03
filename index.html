@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GHOUSE-MOHIDEEN DEEN-CODE | Official Series</title>
+    <title>GHOUSE-MOHIDEEN DEEN-CODE</title>
     <style>
         * {
             margin: 0;
@@ -12,536 +12,431 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
-            background: #000;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: #141414;
             color: #fff;
-            overflow-x: hidden;
         }
 
-        /* Navigation Bar */
-        .navbar {
+        /* NAVIGATION */
+        nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 100%);
-            padding: 15px 50px;
+            height: 70px;
+            background: linear-gradient(180deg, #000 0%, transparent 100%);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 0 4%;
             z-index: 1000;
-            backdrop-filter: blur(10px);
             transition: background 0.3s;
         }
 
-        .navbar.scrolled {
-            background: rgba(0, 0, 0, 0.95);
+        nav.scrolled {
+            background: #000;
         }
 
         .logo {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: bold;
-            color: #00ff41;
-            text-shadow: 0 0 10px #00ff41;
-            letter-spacing: 2px;
+            color: #0f9;
+            letter-spacing: 1px;
         }
 
-        .nav-links {
+        .nav-menu {
             display: flex;
-            gap: 30px;
+            gap: 25px;
             align-items: center;
         }
 
-        .nav-links a {
-            color: #fff;
+        .nav-menu a {
+            color: #e5e5e5;
             text-decoration: none;
             font-size: 14px;
             transition: color 0.3s;
         }
 
-        .nav-links a:hover {
-            color: #00ff41;
+        .nav-menu a:hover {
+            color: #0f9;
         }
 
-        .search-container {
-            position: relative;
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: #333;
+            border-radius: 4px;
+            padding: 8px 12px;
         }
 
-        .search-bar {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 8px 35px 8px 15px;
-            border-radius: 5px;
+        .search-box input {
+            background: none;
+            border: none;
             color: #fff;
-            font-size: 14px;
-            width: 250px;
-            transition: all 0.3s;
-        }
-
-        .search-bar:focus {
             outline: none;
-            border-color: #00ff41;
-            background: rgba(255, 255, 255, 0.15);
+            width: 200px;
         }
 
-        .search-icon {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #00ff41;
+        .search-box input::placeholder {
+            color: #999;
         }
 
-        .mobile-menu-toggle {
+        .menu-icon {
             display: none;
-            flex-direction: column;
-            gap: 5px;
+            font-size: 28px;
             cursor: pointer;
+            color: #fff;
         }
 
-        .mobile-menu-toggle span {
-            width: 25px;
-            height: 3px;
-            background: #00ff41;
-            transition: all 0.3s;
-        }
-
-        /* Hero Section */
-        .hero-section {
+        /* HERO BANNER */
+        .hero {
             margin-top: 70px;
-            position: relative;
             height: 80vh;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23001a00" width="1200" height="600"/><text x="50%" y="50%" font-size="120" fill="%2300ff41" opacity="0.1" text-anchor="middle" font-family="monospace">DEEN-CODE</text></svg>');
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.8)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080"><rect fill="%23000"/><text x="50" y="500" font-size="200" fill="%230f9" opacity="0.05">DEEN-CODE</text></svg>');
             background-size: cover;
             background-position: center;
             display: flex;
             align-items: center;
-            padding: 0 50px;
+            padding: 0 4%;
         }
 
         .hero-content {
-            max-width: 600px;
-            z-index: 1;
+            max-width: 500px;
         }
 
-        .series-title {
-            font-size: 48px;
-            font-weight: bold;
-            color: #00ff41;
-            text-shadow: 0 0 20px #00ff41;
+        .hero-content h1 {
+            font-size: 50px;
             margin-bottom: 20px;
-            animation: glitch 3s infinite;
+            color: #0f9;
+            text-shadow: 2px 2px 10px rgba(0,255,153,0.5);
         }
 
-        @keyframes glitch {
-            0%, 100% { text-shadow: 0 0 20px #00ff41; }
-            50% { text-shadow: -2px 0 20px #00ff41, 2px 0 20px #ff0041; }
-        }
-
-        .series-description {
+        .hero-content p {
             font-size: 18px;
             line-height: 1.6;
             margin-bottom: 30px;
             color: #ccc;
         }
 
-        .hero-buttons {
-            display: flex;
-            gap: 15px;
-        }
-
-        .btn {
-            padding: 15px 30px;
-            border: none;
-            border-radius: 5px;
+        .hero-buttons button {
+            padding: 12px 30px;
+            margin-right: 15px;
             font-size: 16px;
             font-weight: bold;
+            border: none;
+            border-radius: 4px;
             cursor: pointer;
             transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
         }
 
         .btn-play {
-            background: #00ff41;
+            background: #0f9;
             color: #000;
         }
 
         .btn-play:hover {
-            background: #00cc33;
-            box-shadow: 0 0 20px #00ff41;
+            background: #0c7;
         }
 
         .btn-info {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(109,109,110,0.7);
             color: #fff;
-            border: 1px solid #fff;
         }
 
         .btn-info:hover {
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(109,109,110,0.9);
         }
 
-        /* Video Sections */
+        /* VIDEO SECTIONS */
         .video-section {
-            padding: 50px;
+            padding: 60px 4%;
         }
 
-        .section-title {
-            font-size: 28px;
-            margin-bottom: 30px;
-            color: #00ff41;
-            border-left: 5px solid #00ff41;
-            padding-left: 20px;
+        .video-section h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #fff;
         }
 
-        .video-container {
+        .video-wrapper {
             position: relative;
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            aspect-ratio: 16/9;
             background: #000;
-            border: 2px solid #00ff41;
-            border-radius: 10px;
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0, 255, 65, 0.3);
+        }
+
+        .video-wrapper iframe,
+        .video-wrapper video {
+            width: 100%;
+            aspect-ratio: 16/9;
+            display: block;
         }
 
         .video-placeholder {
             width: 100%;
-            height: 100%;
+            aspect-ratio: 16/9;
+            background: #222;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #001a00 0%, #003300 100%);
-            font-size: 24px;
-            color: #00ff41;
-            text-align: center;
-            padding: 20px;
+            font-size: 20px;
+            color: #666;
         }
 
-        .play-button {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80px;
-            height: 80px;
-            background: rgba(0, 255, 65, 0.9);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .play-button:hover {
-            background: #00ff41;
-            box-shadow: 0 0 30px #00ff41;
-            transform: translate(-50%, -50%) scale(1.1);
-        }
-
-        .play-icon {
-            width: 0;
-            height: 0;
-            border-left: 25px solid #000;
-            border-top: 15px solid transparent;
-            border-bottom: 15px solid transparent;
-            margin-left: 5px;
-        }
-
-        /* Seasons Section */
+        /* SEASONS SECTION */
         .seasons-section {
-            padding: 50px;
-            max-width: 1400px;
-            margin: 0 auto;
+            padding: 60px 4%;
         }
 
-        .season-item {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(0, 255, 65, 0.3);
-            border-radius: 10px;
-            margin-bottom: 20px;
+        .seasons-section h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #fff;
+        }
+
+        .season-row {
+            background: #1a1a1a;
+            margin-bottom: 15px;
+            border-radius: 6px;
             overflow: hidden;
-            transition: all 0.3s;
-        }
-
-        .season-item:hover {
-            border-color: #00ff41;
-            box-shadow: 0 5px 20px rgba(0, 255, 65, 0.2);
         }
 
         .season-header {
-            padding: 25px;
-            cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(0, 255, 65, 0.05);
+            padding: 25px 30px;
+            cursor: pointer;
             transition: background 0.3s;
         }
 
         .season-header:hover {
-            background: rgba(0, 255, 65, 0.1);
+            background: #242424;
         }
 
-        .season-info {
+        .season-title-area {
             display: flex;
             align-items: center;
             gap: 20px;
         }
 
-        .season-number {
-            font-size: 48px;
+        .season-number-badge {
+            font-size: 40px;
             font-weight: bold;
-            color: #00ff41;
-            text-shadow: 0 0 10px #00ff41;
+            color: #0f9;
         }
 
-        .season-details h3 {
-            font-size: 24px;
+        .season-info h3 {
+            font-size: 22px;
             margin-bottom: 5px;
         }
 
-        .season-details p {
+        .season-info p {
             color: #999;
             font-size: 14px;
         }
 
-        .season-toggle {
-            font-size: 24px;
-            color: #00ff41;
+        .toggle-icon {
+            font-size: 20px;
             transition: transform 0.3s;
+            color: #0f9;
         }
 
-        .season-toggle.open {
+        .toggle-icon.active {
             transform: rotate(180deg);
         }
 
-        .episodes-container {
+        .episodes-list {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.5s ease;
+            transition: max-height 0.4s ease-out;
+            background: #0a0a0a;
         }
 
-        .episodes-container.open {
-            max-height: 2000px;
+        .episodes-list.open {
+            max-height: 3000px;
         }
 
         .episodes-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            padding: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+            padding: 30px;
         }
 
         .episode-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
+            background: #1a1a1a;
+            border-radius: 6px;
             overflow: hidden;
-            transition: all 0.3s;
             cursor: pointer;
+            transition: transform 0.3s;
         }
 
         .episode-card:hover {
-            transform: translateY(-5px);
-            border-color: #00ff41;
-            box-shadow: 0 10px 30px rgba(0, 255, 65, 0.3);
+            transform: scale(1.05);
         }
 
-        .episode-thumbnail {
+        .episode-thumb {
             width: 100%;
             aspect-ratio: 16/9;
-            background: linear-gradient(135deg, #001a00 0%, #003300 100%);
+            background: linear-gradient(135deg, #0f9 0%, #06d 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #00ff41;
-            font-size: 48px;
+            font-size: 36px;
+            color: #fff;
             position: relative;
         }
 
         .episode-duration {
             position: absolute;
-            bottom: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 5px 10px;
-            border-radius: 5px;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(0,0,0,0.8);
+            padding: 3px 8px;
+            border-radius: 3px;
             font-size: 12px;
         }
 
-        .episode-info {
+        .episode-details {
             padding: 15px;
         }
 
-        .episode-number {
+        .episode-num {
             font-size: 12px;
-            color: #00ff41;
+            color: #999;
             margin-bottom: 5px;
         }
 
         .episode-title {
             font-size: 16px;
-            font-weight: bold;
             margin-bottom: 8px;
+            font-weight: 500;
         }
 
-        .episode-description {
+        .episode-desc {
             font-size: 13px;
             color: #999;
             line-height: 1.4;
         }
 
-        /* Pagination */
+        /* PAGINATION */
         .pagination {
             display: flex;
             justify-content: center;
             gap: 10px;
-            padding: 40px 0;
+            margin-top: 40px;
         }
 
-        .page-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+        .page-number {
+            width: 40px;
+            height: 40px;
+            background: #333;
+            border: none;
+            border-radius: 4px;
             color: #fff;
-            padding: 10px 15px;
-            border-radius: 5px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: background 0.3s;
         }
 
-        .page-btn:hover, .page-btn.active {
-            background: #00ff41;
+        .page-number:hover {
+            background: #555;
+        }
+
+        .page-number.active {
+            background: #0f9;
             color: #000;
-            border-color: #00ff41;
         }
 
-        /* Footer */
-        .footer {
-            background: rgba(0, 0, 0, 0.9);
-            padding: 40px 50px;
-            border-top: 1px solid rgba(0, 255, 65, 0.3);
+        /* FOOTER */
+        footer {
+            padding: 40px 4%;
+            background: #0a0a0a;
             text-align: center;
+            margin-top: 60px;
         }
 
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
+        footer p {
             color: #999;
-            text-decoration: none;
             font-size: 14px;
-            transition: color 0.3s;
         }
 
-        .footer-links a:hover {
-            color: #00ff41;
-        }
-
-        .copyright {
-            color: #666;
-            font-size: 12px;
-        }
-
-        /* Responsive Design */
+        /* RESPONSIVE - MOBILE */
         @media (max-width: 768px) {
-            .navbar {
-                padding: 15px 20px;
-            }
-
-            .nav-links {
+            .nav-menu {
                 position: fixed;
-                top: 60px;
+                top: 70px;
                 left: -100%;
                 width: 100%;
-                height: calc(100vh - 60px);
-                background: rgba(0, 0, 0, 0.98);
+                height: calc(100vh - 70px);
+                background: #000;
                 flex-direction: column;
-                padding: 50px 20px;
+                justify-content: flex-start;
+                padding-top: 50px;
                 transition: left 0.3s;
-                align-items: flex-start;
             }
 
-            .nav-links.active {
+            .nav-menu.active {
                 left: 0;
             }
 
-            .mobile-menu-toggle {
-                display: flex;
+            .menu-icon {
+                display: block;
             }
 
-            .search-bar {
-                width: 100%;
+            .search-box {
+                width: 90%;
                 margin-top: 20px;
             }
 
-            .hero-section {
-                height: 60vh;
-                padding: 0 20px;
+            .search-box input {
+                width: 100%;
             }
 
-            .series-title {
+            .hero {
+                height: 60vh;
+            }
+
+            .hero-content h1 {
                 font-size: 32px;
             }
 
-            .series-description {
+            .hero-content p {
                 font-size: 16px;
+            }
+
+            .hero-buttons button {
+                display: block;
+                width: 100%;
+                margin: 10px 0;
             }
 
             .video-section,
             .seasons-section {
-                padding: 30px 20px;
-            }
-
-            .section-title {
-                font-size: 22px;
+                padding: 40px 4%;
             }
 
             .episodes-grid {
                 grid-template-columns: 1fr;
-                padding: 15px;
             }
 
-            .season-number {
-                font-size: 32px;
+            .season-header {
+                padding: 20px 15px;
             }
 
-            .season-details h3 {
+            .season-number-badge {
+                font-size: 28px;
+            }
+
+            .season-info h3 {
                 font-size: 18px;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-                text-align: center;
-            }
-
-            .footer {
-                padding: 30px 20px;
-            }
-
-            .footer-links {
-                flex-direction: column;
-                gap: 15px;
             }
         }
 
+        /* TABLET */
         @media (min-width: 769px) and (max-width: 1024px) {
             .episodes-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -550,169 +445,205 @@
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar" id="navbar">
+
+    <!-- NAVIGATION BAR -->
+    <nav id="navbar">
         <div class="logo">DEEN-CODE</div>
-        <div class="nav-links" id="navLinks">
+        <div class="nav-menu" id="navMenu">
             <a href="#home">Home</a>
             <a href="#teaser">Teaser</a>
             <a href="#trailer">Trailer</a>
             <a href="#seasons">Seasons</a>
             <a href="#about">About</a>
-            <div class="search-container">
-                <input type="text" class="search-bar" placeholder="Search episodes..." id="searchBar">
-                <span class="search-icon">🔍</span>
+            <div class="search-box">
+                <input type="text" placeholder="Search..." id="searchInput">
+                <span>🔍</span>
             </div>
         </div>
-        <div class="mobile-menu-toggle" id="mobileMenuToggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+        <div class="menu-icon" id="menuIcon">☰</div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero-section" id="home">
+    <!-- HERO BANNER -->
+    <div class="hero" id="home">
         <div class="hero-content">
-            <h1 class="series-title">GHOUSE-MOHIDEEN<br>DEEN-CODE</h1>
-            <p class="series-description">
-                A groundbreaking series that merges Islamic principles with cutting-edge technology. 
-                Follow the journey of hackers guided by faith, justice, and the pursuit of truth in a world 
-                dominated by digital surveillance and corruption.
-            </p>
+            <h1>GHOUSE-MOHIDEEN<br>DEEN-CODE</h1>
+            <p>A revolutionary series blending Islamic values with hacking and technology. Follow the journey of truth seekers fighting corruption in the digital age.</p>
             <div class="hero-buttons">
-                <button class="btn btn-play" onclick="scrollToSection('teaser')">▶ Watch Teaser</button>
-                <button class="btn btn-info" onclick="scrollToSection('seasons')">📋 More Info</button>
+                <button class="btn-play" onclick="document.getElementById('teaser').scrollIntoView({behavior:'smooth'})">▶ Watch Now</button>
+                <button class="btn-info">ℹ More Info</button>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Teaser Section -->
-    <section class="video-section" id="teaser">
-        <h2 class="section-title">OFFICIAL TEASER</h2>
-        <div class="video-container">
+    <!-- TEASER SECTION -->
+    <div class="video-section" id="teaser">
+        <h2>Official Teaser</h2>
+        <div class="video-wrapper">
             <div class="video-placeholder">
-                🎬 TEASER VIDEO<br>
-                <small style="font-size: 16px; margin-top: 10px; display: block;">
-                    The Beginning of a Revolution
-                </small>
-            </div>
-            <div class="play-button">
-                <div class="play-icon"></div>
+                🎬 Teaser Video Placeholder<br>
+                <small>(Embed your teaser video here)</small>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Trailer Section -->
-    <section class="video-section" id="trailer">
-        <h2 class="section-title">OFFICIAL TRAILER</h2>
-        <div class="video-container">
+    <!-- TRAILER SECTION -->
+    <div class="video-section" id="trailer">
+        <h2>Official Trailer</h2>
+        <div class="video-wrapper">
             <div class="video-placeholder">
-                🎥 TRAILER VIDEO<br>
-                <small style="font-size: 16px; margin-top: 10px; display: block;">
-                    Truth Encrypted. Justice Decoded.
-                </small>
-            </div>
-            <div class="play-button">
-                <div class="play-icon"></div>
+                🎥 Trailer Video Placeholder<br>
+                <small>(Embed your trailer video here)</small>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Seasons Section -->
-    <section class="seasons-section" id="seasons">
-        <h2 class="section-title">ALL SEASONS</h2>
-
+    <!-- SEASONS SECTION -->
+    <div class="seasons-section" id="seasons">
+        <h2>All Seasons</h2>
         <div id="seasonsContainer"></div>
-
-        <!-- Pagination -->
         <div class="pagination" id="pagination"></div>
-    </section>
+    </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="#about">About Us</a>
-                <a href="#contact">Contact</a>
-                <a href="#privacy">Privacy Policy</a>
-                <a href="#terms">Terms of Service</a>
-                <a href="#help">Help Center</a>
-            </div>
-            <div class="copyright">
-                © 2024 GHOUSE-MOHIDEEN DEEN-CODE. All rights reserved.
-            </div>
-        </div>
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2024 GHOUSE-MOHIDEEN DEEN-CODE. All Rights Reserved.</p>
     </footer>
 
     <script>
-        // Mobile menu toggle
-        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-        const navLinks = document.getElementById('navLinks');
+        // Mobile Menu Toggle
+        const menuIcon = document.getElementById('menuIcon');
+        const navMenu = document.getElementById('navMenu');
 
-        mobileMenuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+        menuIcon.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
         });
 
-        // Navbar scroll effect
-        const navbar = document.getElementById('navbar');
+        // Navbar Scroll Effect
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
             }
         });
 
-        // Smooth scroll function
-        function scrollToSection(sectionId) {
-            const section = document.getElementById(sectionId);
-            section.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Generate seasons data
-        const seasonsData = [];
-        for (let i = 1; i <= 10; i++) {
+        // Generate Episodes for Each Season
+        function generateEpisodes(seasonNum) {
             const episodes = [];
-            for (let j = 1; j <= 12; j++) {
+            for (let i = 1; i <= 12; i++) {
                 episodes.push({
-                    number: j,
-                    title: `Episode ${j}: ${getEpisodeTitle(i, j)}`,
-                    description: `In this episode, the team faces new challenges as they navigate the digital underground...`,
-                    duration: `${Math.floor(Math.random() * 20 + 40)}:${Math.floor(Math.random() * 60).toString().padStart(2, '0')}`
+                    num: i,
+                    title: `Episode ${i}: The ${['Awakening', 'Protocol', 'Cipher', 'Network', 'Truth', 'Shadow', 'Code', 'Path', 'Signal', 'Key', 'Gate', 'Revelation'][i-1]}`,
+                    desc: `Season ${seasonNum}, Episode ${i} - The team faces new challenges in their mission for truth and justice.`,
+                    duration: `${Math.floor(Math.random() * 20 + 35)}:${Math.floor(Math.random() * 60).toString().padStart(2, '0')}`
                 });
             }
-            seasonsData.push({
-                season: i,
-                title: `Season ${i}`,
-                year: 2024 + Math.floor((i - 1) / 2),
-                episodeCount: 12,
-                episodes: episodes
+            return episodes;
+        }
+
+        // Generate All Seasons Data
+        const allSeasons = [];
+        for (let i = 1; i <= 10; i++) {
+            allSeasons.push({
+                number: i,
+                year: 2024 + Math.floor(i / 3),
+                episodes: generateEpisodes(i)
             });
         }
 
-        function getEpisodeTitle(season, episode) {
-            const titles = [
-                'The Awakening', 'Digital Shadows', 'Encrypted Truth', 'The Protocol',
-                'Faith & Code', 'System Breach', 'Hidden Network', 'The Cipher',
-                'Moral Algorithm', 'Dark Web', 'The Connection', 'Final Decrypt'
-            ];
-            return titles[episode - 1] || 'Unknown';
-        }
-
-        // Pagination settings
+        // Pagination Variables
         const seasonsPerPage = 5;
         let currentPage = 1;
 
+        // Render Seasons
         function renderSeasons(page) {
             const container = document.getElementById('seasonsContainer');
             container.innerHTML = '';
 
             const start = (page - 1) * seasonsPerPage;
             const end = start + seasonsPerPage;
-            const seasonsToShow = seasonsData.slice(start, end);
+            const seasonsToShow = allSeasons.slice(start, end);
 
             seasonsToShow.forEach(season => {
-                const seasonHTML = `
-                    <div class="season-item">
-                        <div class="season-header" onclick="toggleSeason(${season.s
+                const seasonDiv = document.createElement('div');
+                seasonDiv.className = 'season-row';
+                seasonDiv.innerHTML = `
+                    <div class="season-header" onclick="toggleSeason(${season.number})">
+                        <div class="season-title-area">
+                            <div class="season-number-badge">${season.number}</div>
+                            <div class="season-info">
+                                <h3>Season ${season.number}</h3>
+                                <p>${season.year} • 12 Episodes</p>
+                            </div>
+                        </div>
+                        <div class="toggle-icon" id="icon-${season.number}">▼</div>
+                    </div>
+                    <div class="episodes-list" id="list-${season.number}">
+                        <div class="episodes-grid">
+                            ${season.episodes.map(ep => `
+                                <div class="episode-card">
+                                    <div class="episode-thumb">
+                                        ${ep.num}
+                                        <div class="episode-duration">${ep.duration}</div>
+                                    </div>
+                                    <div class="episode-details">
+                                        <div class="episode-num">Episode ${ep.num}</div>
+                                        <div class="episode-title">${ep.title}</div>
+                                        <div class="episode-desc">${ep.desc}</div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                container.appendChild(seasonDiv);
+            });
+        }
+
+        // Toggle Season Episodes
+        function toggleSeason(seasonNum) {
+            const list = document.getElementById(`list-${seasonNum}`);
+            const icon = document.getElementById(`icon-${seasonNum}`);
+            
+            list.classList.toggle('open');
+            icon.classList.toggle('active');
+        }
+
+        // Render Pagination
+        function renderPagination() {
+            const totalPages = Math.ceil(allSeasons.length / seasonsPerPage);
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = '';
+
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'page-number';
+                btn.textContent = i;
+                if (i === currentPage) btn.classList.add('active');
+                btn.onclick = () => {
+                    currentPage = i;
+                    renderSeasons(currentPage);
+                    renderPagination();
+                    document.getElementById('seasons').scrollIntoView({behavior: 'smooth'});
+                };
+                pagination.appendChild(btn);
+            }
+        }
+
+        // Search Functionality
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            document.querySelectorAll('.episode-card').forEach(card => {
+                const text = card.textContent.toLowerCase();
+                card.style.display = text.includes(term) ? 'block' : 'none';
+            });
+        });
+
+        // Initialize
+        renderSeasons(currentPage);
+        renderPagination();
+    </script>
+
+</body>
+</html>
