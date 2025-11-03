@@ -1,0 +1,112 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iltrons Team</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #00ff99;
+      font-family: 'Courier New', monospace;
+      margin: 0;
+      padding: 0;
+    }header {
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(90deg, #00ff99, #0099ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 2em;
+  font-weight: bold;
+  letter-spacing: 2px;
+  animation: glitch 2s infinite;
+}
+
+@keyframes glitch {
+  0% { text-shadow: 2px 0 #ff0000, -2px 0 #00ffff; }
+  50% { text-shadow: -2px 0 #ff0000, 2px 0 #00ffff; }
+  100% { text-shadow: 2px 0 #ff0000, -2px 0 #00ffff; }
+}
+
+.team {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
+}
+
+.member {
+  background: rgba(0, 255, 153, 0.1);
+  border: 1px solid #00ff99;
+  border-radius: 10px;
+  margin: 15px;
+  width: 250px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 0 10px #00ff99;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.member:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #0099ff;
+}
+
+.member img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid #00ff99;
+  margin-bottom: 10px;
+}
+
+.member h2 {
+  color: #00ffcc;
+  font-size: 1.5em;
+}
+
+.member p {
+  color: #00ffff;
+  font-size: 1em;
+}
+
+footer {
+  text-align: center;
+  padding: 10px;
+  border-top: 1px solid #00ff99;
+  margin-top: 30px;
+  font-size: 0.9em;
+}
+
+  </style>
+</head>
+<body>
+  <header>⚡ ILTRONS TEAM ⚡</header>
+  <div class="team">
+    <div class="member">
+      <img src="https://via.placeholder.com/100" alt="Team Member" />
+      <h2>Symbiot</h2>
+      <p>Founder | Lead Developer | Hacker</p>
+    </div><div class="member">
+  <img src="https://via.placeholder.com/100" alt="Team Member" />
+  <h2>Nova</h2>
+  <p>AI Engineer | Cyber Analyst</p>
+</div>
+
+<div class="member">
+  <img src="https://via.placeholder.com/100" alt="Team Member" />
+  <h2>GhostByte</h2>
+  <p>Backend Specialist | Security Tester</p>
+</div>
+
+<div class="member">
+  <img src="https://via.placeholder.com/100" alt="Team Member" />
+  <h2>CyberLynx</h2>
+  <p>Frontend Wizard | Visual Designer</p>
+</div>
+
+  </div>  <footer>
+    © 2025 Iltrons Universe. All Rights Reserved.
+  </footer>
+</body>
+</html>

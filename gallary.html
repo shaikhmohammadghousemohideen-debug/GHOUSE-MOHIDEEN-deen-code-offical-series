@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CYBER GALLERY | ENCRYPTED VISUALS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: #000;
+            color: #0f0;
+            overflow-x: hidden;
+        }
+
+        /* Terminal Loading Screen */
+        .boot-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px;
+            animation: fadeOut 1s 3s forwards;
+        }
+
+        @keyframes fadeOut {
+            to { opacity: 0; visibility: hidden; }
+        }
+
+        .boot-line {
+            color: #0f0;
+            font-size: 14px;
+            margin: 5px 0;
+            opacity: 0;
+            animation: bootText 0.1s forwards;
+        }
+
+        @keyframes bootText {
+            to { opacity: 1; }
+        }
+
+        .boot-line:nth-child(1) { animation-delay: 0s; }
+        .boot-line:nth-child(2) { animation-delay: 0.3s; }
+        .boot-line:nth-child(3) { animation-delay: 0.6s; }
+        .boot-line:nth-child(4) { animation-delay: 0.9s; }
+        .boot-line:nth-child(5) { animation-delay: 1.2s; }
+        .boot-line:nth-child(6) { animation-delay: 1.5s; }
+        .boot-line:nth-child(7) { animation-delay: 1.8s; }
+        .boot-line:nth-child(8) { animation-delay: 2.1s; }
+
+        /* Matrix Rain Background */
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.1;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            border-bottom: 2px solid #0f0;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 24px;
+            color: #0f0;
+            text-shadow: 0 0 10px #0f0;
+            animation: glitch 3s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { text-shadow: 0 0 10px #0f0; }
+            50% { text-shadow: -2px 0 10px #0f0, 2px 0 10px #f00; }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #0f0;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #0f0;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #0f0;
+        }
+
+        /* Header Section */
+        header {
+            margin-top: 80px;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .main-title {
+            font-size: 64px;
+            color: #0f0;
+            text-shadow: 0 0 20px #0f0;
+            margin-bottom: 20px;
+            animation: flicker 4s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+            51% { opacity: 1; }
+            52% { opacity: 0.8; }
+            53% { opacity: 1; }
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #0a0;
+            margin-bottom: 30px;
+        }
+
+        .terminal-text {
+            display: inline-block;
+            border-right: 2px solid #0f0;
+            animation: typing 3s steps(40) infinite, blink 0.7s infinite;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        @keyframes typing {
+            0%, 100% { width: 0; }
+            50% { width: 100%; }
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+
+        /* Filter Buttons */
+        .filter-section {
+            padding: 20px 40px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 2px solid #0f0;
+            color: #0f0;
+            padding: 10px 25px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: #0f0;
+            transition: left 0.3s;
+            z-index: -1;
+        }
+
+        .filter-btn:hover::before,
+        .filter-btn.active::before {
+            left: 0;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            color: #000;
+        }
+
+        /* Gallery Grid */
+        .gallery {
+            padding: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 1;
+            overflow: hidden;
+            border: 2px solid #0f0;
+            cursor: pointer;
+            transition: all 0.3s;
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px #0f0;
+            z-index: 10;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(120%);
+            transition: all 0.3s;
+        }
+
+        .gallery-item:hover img {
+            filter: grayscale(0%) contrast(100%);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            padding: 20px;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .overlay-title {
+            font-size: 20px;
+            color: #0f0;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px #0f0;
+        }
+
+        .overlay-category {
+            font-size: 12px;
+            color: #0a0;
+            border: 1px solid #0a0;
+            padding: 5px 10px;
+        }
+
+        .scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #0f0;
+            animation: scan 3s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+
+        /* Lightbox Modal */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            border: 3px solid #0f0;
+            box-shadow: 0 0 50px #0f0;
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            display: block;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            font-size: 36px;
+            color: #0f0;
+            cursor: pointer;
+            background: none;
+            border: none;
+            transition: all 0.3s;
+        }
+
+        .lightbox-close:hover {
+            color: #f00;
+            text-shadow: 0 0 10px #f00;
+        }
+
+        .lightbox-info {
+            position: absolute;
+            bottom: -60px;
+            left: 0;
+            color: #0f0;
+            font-size: 14px;
+        }
+
+        /* Stats Counter */
+        .stats-bar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            border-top: 2px solid #0f0;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-around;
+            z-index: 1000;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            color: #0f0;
+            text-shadow: 0 0 10px #0f0;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            color: #0a0;
+            margin-top: 5px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 60px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 60px);
+                background: rgba(0, 0, 0, 0.98);
+                flex-direction: column;
+                padding: 50px 20px;
+                transition: left 0.3s;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .main-title {
+                font-size: 36px;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 15px;
+                padding: 20px;
+            }
+
+            .filter-section {
+                padding: 20px;
+            }
+
+            .stats-bar {
+                padding: 10px 20px;
+                flex-wrap: wrap;
+            }
+
+            .stat-item {
+                flex: 1 1 50%;
+                margin: 5px 0;
+            }
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            animation: glitch-1 2s infinite;
+            color: #f00;
+            z-index: -1;
+        }
+
+        .glitch::after {
+            animation: glitch-2 2s infinite;
+            color: #00f;
+            z-index: -2;
+        }
+
+        @keyframes glitch-1 {
+            0%, 100% { transform: translate(0); }
+            33% { transform: translate(-2px, 2px); }
+            66% { transform: translate(2px, -2px); }
+        }
+
+        @keyframes glitch-2 {
+            0%, 100% { transform: translate(0); }
+            33% { transform: translate(2px, -2px); }
+            66% { transform: translate(-2px, 2px); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Boot Screen -->
+    <div class="boot-screen">
+        <div class="boot-line">[SYSTEM] Initializing Cyber Gallery...</div>
+        <div class="boot-line">[NETWORK] Connecting to secure server...</div>
+        <div class="boot-line">[DATABASE] Loading encrypted images...</div>
+        <div class="boot-line">[SECURITY] Running firewall protocols...</div>
+        <div class="boot-line">[GPU] Rendering visual matrix...</div>
+        <div class="boot-line">[MEMORY] Allocating 2048MB...</div>
+        <div class="boot-line">[STATUS] All systems operational</div>
+        <div class="boot-line">[ACCESS] GRANTED ✓</div>
+    </div>
+
+    <!-- Matrix Background -->
+    <canvas id="matrix-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo glitch" data-text="[CYBER_GALLERY]">[CYBER_GALLERY]</div>
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">HOME</a>
+          
+        </div>
+        <div class="menu-toggle" id="menuToggle">☰</div>
+    </nav>
+
+    <!-- Header -->
+    <header>
+        <h1 class="main-title">ENCRYPTED VISUALS</h1>
+        <p class="subtitle">
+            <span class="terminal-text">ACCESS_GRANTED > Viewing classified images...</span>
+        </p>
+    </header>
+
+    <!-- Filter Section -->
+    <div class="filter-section">
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">ALL</button>
+            <button class="filter-btn" data-filter="cyberpunk">CYBERPUNK</button>
+            <button class="filter-btn" data-filter="digital">DIGITAL</button>
+            <button class="filter-btn" data-filter="abstract">ABSTRACT</button>
+            <button class="filter-btn" data-filter="tech">TECH</button>
+            <button class="filter-btn" data-filter="neon">NEON</button>
+        </div>
+    </div>
+
+    <!-- Gallery -->
+    <div class="gallery" id="gallery"></div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" id="lightboxClose">×</button>
+            <img src="" alt="" id="lightboxImage">
+            <div class="lightbox-info" id="lightboxInfo"></div>
+        </div>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-value" id="totalImages">0</div>
+            <div class="stat-label">TOTAL IMAGES</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value" id="uploadDate">2024</div>
+            <div class="stat-label">LAST UPLOAD</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value" id="viewCount">0</div>
+            <div class="stat-label">VIEWS</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">SECURE</div>
+            <div class="stat-label">STATUS</div>
+        </div>
+    </div>
+
+    <script>
+        // Matrix Rain Effect
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#0f0';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 50);
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Gallery Images Data
+        const galleryData = [
+            { id: 1, title: 'NEURAL_NET_001', category: 'cyberpunk', image: 'https://via.placeholder.com/400/0f0/000?text=CYBERPUNK_01' },
+            { id: 2, title: 'DIGITAL_VOID_002', category: 'digital', image: 'https://via.placeholder.com/400/00f/fff?text=DIGITAL_02' },
+            { id: 3, title: 'ABSTRACT_DATA_003', category: 'abstract', image: 'https://via.placeholder.com/400/f0f/000?text=ABSTRACT_03' },
+            { id: 4, title: 'TECH_CORE_004', category: 'tech', image: 'https://via.placeholder.com/400/0ff/000?text=TECH_04' },
+            { id: 5, title: 'NEON_CITY_005', category: 'neon', image: 'https://via.placeholder.com/400/ff0/000?text=NEON_05' },
+            { id: 6, title: 'CYBER_PUNK_006', category: 'cyberpunk', image: 'https://via.placeholder.com/400/f00/fff?text=CYBER_06' },
+            { id: 7, title: 'DIGITAL_RAIN_007', category: 'digital', image: 'https://via.placeholder.com/400/0f0/000?text=DIGITAL_07' },
+            { id: 8, title: 'ABSTRACT_FLOW_008', category: 'abstract', image: 'https://via.placeholder.com/400/ff0/000?text=ABSTRACT_08' },
+            { id: 9, title: 'TECH_NODE_009', category: 'tech', image: 'https://via.placeholder.com/400/0ff/000?text=TECH_09' },
+            { id: 10, title: 'NEON_GRID_010', category: 'neon', image: 'https://via.placeholder.com/400/f0f/fff?text=NEON_10' },
+            { id: 11, title: 'MATRIX_011', category: 'cyberpunk', image: 'https://via.placeholder.com/400/00f/fff?text=MATRIX_11' },
+            { id: 12, title: 'DATA_STREAM_012', category: 'digital', image: 'https://via.placeholder.com/400/0f0/000?text=DATA_12' },
+        ];
+
+        // Render Gallery
+        function renderGallery(filter = 'all') {
+            const gallery = document.getElementById('gallery');
+            gallery.innerHTML = '';
+
+            const filtered = filter === 'all' 
+                ? galleryData 
+                : galleryData.filter(item => item.category === filter);
+
+            filtered.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'gallery-item';
+                div.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}">
+                    <div class="scan-line"></div>
+                    <div class="gallery-overlay">
+                        <div class="overlay-title">${item.title}</div>
+                        <div class="overlay-category">[${item.category.toUpperCase()}]</div>
+                    </div>
+                `;
+                div.onclick = () => openLightbox(item);
+                gallery.appendChild(div);
+            });
+
+            document.getElementById('totalImages').textContent = filtered.length;
+        }
+
+        // Filter Buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderGallery(btn.dataset.filter);
+            });
+        });
+
+        // Lightbox
+        function openLightbox(item) {
+            const lightbox = document.getElementById('lightbox');
+            const img = document.getElementById('lightboxImage');
+            const info = document.getElementById('lightboxInfo');
+            
+            img.src = item.image;
+            info.textContent = `${item.title} | CATEGORY: ${item.category.toUpperCase()} | ID: ${item.id}`;
+            lightbox.classList.add('active');
+        }
+
+        document.getElementById('lightboxClose').addEventListener('click', () => {
+            document.getElementById('lightbox').classList.remove('active');
+        });
+
+        document.getElementById('lightbox').addEventListener('click', (e) => {
+            if (e.target.id === 'lightbox') {
+                document.getElementById('lightbox').classList.remove('active');
+            }
+        });
+
+        // Mobile Menu
+        document.getElementById('menuToggle').addEventListener('click', () => {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
+
+        // Stats Counter Animation
+        function animateCounter(id, target) {
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                document.getElementById(id).textContent = Math.floor(current);
+            }, 20);
+        }
+
+        // Initialize
+        renderGallery();
+        animateCounter('viewCount', 1337);
+    </script>
+
+</body>
+</html>
